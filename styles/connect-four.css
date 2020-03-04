@@ -1,0 +1,31 @@
+body {
+
+  text-align: center;
+
+  font-family: "Roboto", monospace;
+
+  background-color: yellow;
+
+}
+
+h1 {
+
+  margin: 0 auto;
+
+  font-family: "Roboto", monospace;
+
+  font-size: 48px;
+
+  margin: 2%;
+
+}
+
+h2 {
+
+  font-size: 36px;
+
+  font-weight: lighter;
+
+  margin: 2%;
+
+}
