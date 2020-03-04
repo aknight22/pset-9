@@ -1,31 +1,42 @@
+
 <!DOCTYPE html>
+
 <html>
-  <head>
-    <meta charset="UTF-8"/>
+	<head>
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
     <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display" rel="stylesheet" />
-        <link rel="stylesheet" href="styles/brick.css">
-        <script defer src="js/brick-breaker.js"></script>
+    <link href="styles/game2.css" rel="stylesheet" type="text/css" />
+    <script defer src="js/game2.js"></script>
 
-        <title>Brick Breaker</title>
-        <link rel="icon" href="images/popsmoke2.jpg">
-    </head>
-    <body>
-      <audio id="myAudio">
-        <source src="audio/woowoo.mp3" type="audio/mpeg">
-      </audio>
-      <ul>
-        <li><a  href="index.html">Home</a></li>
-        <li><a href="tic-tac-toe.html">Tic-Tac-Toe</a></li>
-        <li><a href="connect4.html">Connect Four</a></li>
-        <li><a class="active" href="brick-breaker.html">Brick Breaker</a></li>
-      </ul>
+    <title>Brick Breaker</title>
+</head>
 
-      <h1>brick breaker</h1>
-     <h2 id="message">Break Those Bricks!</h2>
-     <canvas id="myCanvas" width="960" height="640"></canvas
+<body>
+
+	<header>
+    <div class="menu">
+      <div class="label"><a href="index.html">Home</a></div>
+      <div class="spacer"></div>
+      <div class="item"><span> </span></div>
+      <div class="item"><span><a href="game1.html">Tic Tac Toe</a></span></div>
+      <div class="item"><span><a href="game2.html" class="current">Brick Breaker</a></span></div>
+      <div class="item"><span><a href="game3.html">Connect Four</a></span></div>
+    </div>
+  </header>
+
+<h1>bRick bReAker</h1>
+
+	<canvas id="myCanvas" width="1050" height="600"></canvas>
+
+<div class="container">
+<div id="function" class="btn3d btn btn-default btn-lg unselectable">BEGIN</div>
+</div>
 
 
-    </body>
+
+</body>
+
 </html>
