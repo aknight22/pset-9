@@ -205,7 +205,7 @@ h1 {
 }
 
 .btn3d.btn-default {
-    color: white;
+    color: blue;
     box-shadow: 0 0 0 1px #404040 inset, 0 0 0 2px #404040 inset, 0 8px 0 0 #404040, 0 8px 8px 1px #404040;
     background-color: 	#ADD8E6;
 }
