@@ -1,237 +1,136 @@
 ///////////////////// CONSTANTS /////////////////////////////////////
 
 const winningConditions = [
-
   [0, 1, 2],
-
   [3, 4, 5],
-
   [6, 7, 8],
-
   [0, 3, 6],
-
   [1, 4, 7],
-
   [2, 5, 8],
-
   [0, 4, 8],
-
   [2, 4, 6]
-
 ];
-
-
 
 ///////////////////// APP STATE (VARIABLES) /////////////////////////
 
 let board;
-
 let turn;
-
 let win;
-
-let determine_first_player;
-
-let xwins = 0;
-
-let owins = 0;
-
-let ties= 0
-
-
+let countingxwins = 0
+let countingowins = 0
+let switch_turn_count = 0
+let starter = "X";
+let change = document.getElementById("orderbutton").innerHTML
 
 ///////////////////// CACHED ELEMENT REFERENCES /////////////////////
 
 const squares = Array.from(document.querySelectorAll("#board div"));
-
 const message = document.querySelector("h2");
-
-
 
 ///////////////////// EVENT LISTENERS ///////////////////////////////
 
 window.onload = init;
-
 document.getElementById("board").onclick = takeTurn;
-
 document.getElementById("reset-button").onclick = init;
-
-document.getElementById("reset-scoreboard").onclick = resetScoreboard;
+document.getElementById("orderbutton").onclick = changeOrder;
 
 ///////////////////// FUNCTIONS /////////////////////////////////////
-
 function init() {
-
-  board = [
-
-    "", "", "",
-
-    "", "", "",
-
-    "", "", ""
-
-  ];
-
-
-
-  do {
-
-    var first_Player = prompt("Enter X or O to determine who goes first: ");
-
-    if (first_Player === null) {
-
-      turn = "X";
-
-      break;
-
-    } else if (first_Player === "X" || first_Player === "x") {
-
-      turn = "X";
-
-    } else if (first_Player === "O" || first_Player === "o") {
-
-      turn = "O";
-
-    } else {
-
-      determine_first_player = L;
-
-    }
-
-  } while (first_Player !== "X" && first_Player !== "x" && first_Player !== "O" && first_Player !== "o");
-
-
-
-  win = null;
-
-
-
-  render();
-
+board = ["", "", "", "", "", "", "", "", ""];
+  if (switch_turn_count == 0) {
+  turn = "X";
+} else if (switch_turn_count == 1) {
+  turn = "O"
 }
 
+win = null;
 
+let neww = change.splice(16, 1, "X");
+document.getElementById("orderbutton").innerHTML = neww
+
+render();
+}
+
+function switch_turn() {
+
+  if (switch_turn_count == 0) {
+  switch_turn_count = 1
+} else if (switch_turn_count == 1) {
+  switch_turn_count = 0
+}
+}
+
+String.prototype.splice = function(idx, rem, str) {
+    return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem));
+};
 
 function render() {
-
-  board.forEach(function(mark, index) {
-
-    squares[index].textContent = mark;
-
-  });
+board.forEach(function(mark, index) {
+  squares[index].textContent = mark;
+});
 
   if (win === "X") {
-
-    xwins = xwins + 1
-
-  }
-
-  else if (win === "O") {
-
-    owins = owins + 1
-
-  }
-
-  else if (win === "T") {
-
-    ties = ties + 1
-
-  }
-
-  xscore.innerHTML = xwins
-
-  oscore.innerHTML = owins
-
-  tiescore.innerHTML = ties
-
-  message.textContent =
-
-    win === "T" ? "It's a tie!" : win ? `${win} wins!` : `Turn: ${turn}`;
-
+  countingxwins = countingxwins + 1
+} else if (win === "O") {
+  countingowins = countingowins + 1
 }
 
+let change1 = document.getElementById("owins").innerHTML;
+let change2 = document.getElementById("xwins").innerHTML;
 
+change1 = `X Wins: ${countingxwins}`;
+change2 = `O Wins: ${countingowins}`;
+
+document.getElementById("xwins").innerHTML = change1;
+document.getElementById("owins").innerHTML = change2;
+
+message.textContent =
+  win === "T" ? "It's a tie!" : win ? `${win} wins!` : `Turn: ${turn}`;
+}
 
 function takeTurn(e) {
-
-  if (!win) {
-
-    let index = squares.findIndex(function(square) {
-
-      return square === e.target;
-
-    });
-
-
-
-    if (board[index] === "") {
-
-      board[index] = turn;
-
-      turn = turn === "X" ? "O" : "X";
-
-      win = getWinner();
-
-
-
-      render();
-
-    }
-
-  }
-
-}
-
-
-
-function getWinner() {
-
-  let winner = null;
-
-
-
-  winningConditions.forEach(function(condition, index) {
-
-    if (
-
-      board[condition[0]] &&
-
-      board[condition[0]] === board[condition[1]] &&
-
-      board[condition[0]] === board[condition[2]]
-
-    ){
-
-        winner = board[condition[0]];
-
-    }
-
+if (!win) {
+  let index = squares.findIndex(function(square) {
+    return square === e.target;
   });
 
-
-
-  return winner ? winner : board.includes("") ? null : "T";
-
+  if (board[index] === "") {
+    board[index] = turn;
+    turn = turn === "X" ? "O" : "X";
+    win = getWinner();
+    render();
+  }
+}
 }
 
+function getWinner() {
+let winner = null;
 
+winningConditions.forEach(function(condition, index) {
+  if (
+    board[condition[0]] &&
+    board[condition[0]] === board[condition[1]] &&
+    board[condition[1]] === board[condition[2]]
+  ) {
+    winner = board[condition[0]];
+  }
+});
 
-function resetScoreboard() {
-
-    xwins = 0;
-
-    owins = 0;
-
-    ties = 0;
-
-
-
-    xscore.innerHTML = xwins
-
-    oscore.innerHTML = owins
-
-    tiescore.innerHTML = ties
-
+return winner ? winner : board.includes("") ? null : "T";
 }
 
-// END OF TIC TAC TOE 
+function changeOrder() {
+    init();
+    if (starter === "X") {
+        turn = "O";
+        starter = "O";
+    } else {
+        turn = "X";
+        starter = "X"
+    }
+
+    let neww = change.splice(16, 1, starter);
+    document.getElementById("orderbutton").innerHTML = neww
+
+    render();
+}
